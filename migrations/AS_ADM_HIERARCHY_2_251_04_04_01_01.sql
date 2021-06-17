@@ -1,188 +1,40 @@
 -- for AS_ADM_HIERARCHY_2_251_04_04_01_01
-create table
+create table gar.adm_hierarchy
 (
-
+    id          bigint   not null primary key,
+    objectid    bigint   not null,
+    objectguid  uuid     not null,
+    parentobjid bigint,
+    changeid    bigint   not null,
+    regioncode  varchar,
+    areacode    varchar,
+    citycode    varchar,
+    placecode   varchar,
+    plancode    varchar,
+    streetcode  varchar,
+    previd      bigint,
+    nextid      bigint,
+    updatedate  date     not null,
+    startdate   date     not null,
+    enddate     date     not null,
+    isactive    smallint not null
 );
 
-comment on table gar.item is 'Сведения по иерархии в административном делении';
+comment on table gar.adm_hierarchy is 'Сведения по иерархии в административном делении';
 
-comment on column gar.item.id is 'Уникальный идентификатор записи. Ключевое поле';
-
--- <?xml version="1.0" encoding="utf-8"?>
--- <!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by TeaM DJiNN (TeaM DJiNN) -->
--- <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns:usch="http://www.unisoftware.ru/schematron-extensions" xmlns:sql="urn:schemas-microsoft-com:mapping-schema" elementFormDefault="qualified" attributeFormDefault="unqualified">
--- 	<xs:element name="ITEMS">
--- 		<xs:annotation>
--- 			<xs:documentation>Состав и структура файла со сведениями по иерархии в административном делении</xs:documentation>
--- 		</xs:annotation>
--- 		<xs:complexType>
--- 			<xs:sequence>
--- 				<xs:element name="ITEM" maxOccurs="unbounded">
--- 					<xs:annotation>
--- 						<xs:documentation>Сведения по иерархии в административном делении</xs:documentation>
--- 					</xs:annotation>
--- 					<xs:complexType>
--- 						<xs:attribute name="ID" use="required">
--- 							<xs:annotation>
--- 								<xs:documentation>Уникальный идентификатор записи. Ключевое поле</xs:documentation>
--- 							</xs:annotation>
--- 							<xs:simpleType>
--- 								<xs:restriction base="xs:long">
--- 									<xs:totalDigits value="19"/>
--- 								</xs:restriction>
--- 							</xs:simpleType>
--- 						</xs:attribute>
--- 						<xs:attribute name="OBJECTID" use="required">
--- 							<xs:annotation>
--- 								<xs:documentation>Глобальный уникальный идентификатор объекта</xs:documentation>
--- 							</xs:annotation>
--- 							<xs:simpleType>
--- 								<xs:restriction base="xs:long">
--- 									<xs:totalDigits value="19"/>
--- 								</xs:restriction>
--- 							</xs:simpleType>
--- 						</xs:attribute>
--- 						<xs:attribute name="PARENTOBJID" use="optional">
--- 							<xs:annotation>
--- 								<xs:documentation>Идентификатор родительского объекта</xs:documentation>
--- 							</xs:annotation>
--- 							<xs:simpleType>
--- 								<xs:restriction base="xs:long">
--- 									<xs:totalDigits value="19"/>
--- 								</xs:restriction>
--- 							</xs:simpleType>
--- 						</xs:attribute>
--- 						<xs:attribute name="CHANGEID" use="required">
--- 							<xs:annotation>
--- 								<xs:documentation>ID изменившей транзакции</xs:documentation>
--- 							</xs:annotation>
--- 							<xs:simpleType>
--- 								<xs:restriction base="xs:long">
--- 									<xs:totalDigits value="19"/>
--- 								</xs:restriction>
--- 							</xs:simpleType>
--- 						</xs:attribute>
--- 						<xs:attribute name="REGIONCODE" use="optional">
--- 							<xs:annotation>
--- 								<xs:documentation>Код региона</xs:documentation>
--- 							</xs:annotation>
--- 							<xs:simpleType>
--- 								<xs:restriction base="xs:string">
--- 									<xs:minLength value="1"/>
--- 									<xs:maxLength value="4"/>
--- 									<xs:pattern value="[0-9]{1,4}"/>
--- 								</xs:restriction>
--- 							</xs:simpleType>
--- 						</xs:attribute>
--- 						<xs:attribute name="AREACODE" use="optional">
--- 							<xs:annotation>
--- 								<xs:documentation>Код района</xs:documentation>
--- 							</xs:annotation>
--- 							<xs:simpleType>
--- 								<xs:restriction base="xs:string">
--- 									<xs:minLength value="1"/>
--- 									<xs:maxLength value="4"/>
--- 									<xs:pattern value="[0-9]{1,4}"/>
--- 								</xs:restriction>
--- 							</xs:simpleType>
--- 						</xs:attribute>
--- 						<xs:attribute name="CITYCODE" use="optional">
--- 							<xs:annotation>
--- 								<xs:documentation>Код города</xs:documentation>
--- 							</xs:annotation>
--- 							<xs:simpleType>
--- 								<xs:restriction base="xs:string">
--- 									<xs:minLength value="1"/>
--- 									<xs:maxLength value="4"/>
--- 									<xs:pattern value="[0-9]{1,4}"/>
--- 								</xs:restriction>
--- 							</xs:simpleType>
--- 						</xs:attribute>
--- 						<xs:attribute name="PLACECODE" use="optional">
--- 							<xs:annotation>
--- 								<xs:documentation>Код населенного пункта</xs:documentation>
--- 							</xs:annotation>
--- 							<xs:simpleType>
--- 								<xs:restriction base="xs:string">
--- 									<xs:minLength value="1"/>
--- 									<xs:maxLength value="4"/>
--- 									<xs:pattern value="[0-9]{1,4}"/>
--- 								</xs:restriction>
--- 							</xs:simpleType>
--- 						</xs:attribute>
--- 						<xs:attribute name="PLANCODE" use="optional">
--- 							<xs:annotation>
--- 								<xs:documentation>Код ЭПС</xs:documentation>
--- 							</xs:annotation>
--- 							<xs:simpleType>
--- 								<xs:restriction base="xs:string">
--- 									<xs:minLength value="1"/>
--- 									<xs:maxLength value="4"/>
--- 									<xs:pattern value="[0-9]{1,4}"/>
--- 								</xs:restriction>
--- 							</xs:simpleType>
--- 						</xs:attribute>
--- 						<xs:attribute name="STREETCODE" use="optional">
--- 							<xs:annotation>
--- 								<xs:documentation>Код улицы</xs:documentation>
--- 							</xs:annotation>
--- 							<xs:simpleType>
--- 								<xs:restriction base="xs:string">
--- 									<xs:minLength value="1"/>
--- 									<xs:maxLength value="4"/>
--- 									<xs:pattern value="[0-9]{1,4}"/>
--- 								</xs:restriction>
--- 							</xs:simpleType>
--- 						</xs:attribute>
--- 						<xs:attribute name="PREVID" use="optional">
--- 							<xs:annotation>
--- 								<xs:documentation>Идентификатор записи связывания с предыдущей исторической записью</xs:documentation>
--- 							</xs:annotation>
--- 							<xs:simpleType>
--- 								<xs:restriction base="xs:long">
--- 									<xs:totalDigits value="19"/>
--- 								</xs:restriction>
--- 							</xs:simpleType>
--- 						</xs:attribute>
--- 						<xs:attribute name="NEXTID" use="optional">
--- 							<xs:annotation>
--- 								<xs:documentation>Идентификатор записи связывания с последующей исторической записью</xs:documentation>
--- 							</xs:annotation>
--- 							<xs:simpleType>
--- 								<xs:restriction base="xs:long">
--- 									<xs:totalDigits value="19"/>
--- 								</xs:restriction>
--- 							</xs:simpleType>
--- 						</xs:attribute>
--- 						<xs:attribute name="UPDATEDATE" type="xs:date" use="required">
--- 							<xs:annotation>
--- 								<xs:documentation>Дата внесения (обновления) записи</xs:documentation>
--- 							</xs:annotation>
--- 						</xs:attribute>
--- 						<xs:attribute name="STARTDATE" type="xs:date" use="required">
--- 							<xs:annotation>
--- 								<xs:documentation>Начало действия записи</xs:documentation>
--- 							</xs:annotation>
--- 						</xs:attribute>
--- 						<xs:attribute name="ENDDATE" type="xs:date" use="required">
--- 							<xs:annotation>
--- 								<xs:documentation>Окончание действия записи</xs:documentation>
--- 							</xs:annotation>
--- 						</xs:attribute>
--- 						<xs:attribute name="ISACTIVE" use="required">
--- 							<xs:annotation>
--- 								<xs:documentation>Признак действующего адресного объекта</xs:documentation>
--- 							</xs:annotation>
--- 							<xs:simpleType>
--- 								<xs:restriction base="xs:integer">
--- 									<xs:enumeration value="0"/>
--- 									<xs:enumeration value="1"/>
--- 								</xs:restriction>
--- 							</xs:simpleType>
--- 						</xs:attribute>
--- 					</xs:complexType>
--- 				</xs:element>
--- 			</xs:sequence>
--- 		</xs:complexType>
--- 	</xs:element>
--- </xs:schema>
+comment on column gar.adm_hierarchy.id is 'Уникальный идентификатор записи. Ключевое поле';
+comment on column gar.adm_hierarchy.objectid is 'Глобальный уникальный идентификатор объекта';
+comment on column gar.adm_hierarchy.parentobjid is 'Идентификатор родительского объекта';
+comment on column gar.adm_hierarchy.changeid is 'ID изменившей транзакции';
+comment on column gar.adm_hierarchy.regioncode is 'Код региона';
+comment on column gar.adm_hierarchy.areacode is 'Код района';
+comment on column gar.adm_hierarchy.citycode is 'Код города';
+comment on column gar.adm_hierarchy.placecode is 'Код населенного пункта';
+comment on column gar.adm_hierarchy.plancode is 'Код ЭПС';
+comment on column gar.adm_hierarchy.streetcode is 'Код улицы';
+comment on column gar.adm_hierarchy.previd is 'Идентификатор записи связывания с предыдущей исторической записью';
+comment on column gar.adm_hierarchy.nextid is 'Идентификатор записи связывания с последующей исторической записью';
+comment on column gar.adm_hierarchy.updatedate is 'Дата внесения (обновления) записи';
+comment on column gar.adm_hierarchy.startdate is 'Начало действия записи';
+comment on column gar.adm_hierarchy.enddate is 'Окончание действия записи';
+comment on column gar.adm_hierarchy.isactive is 'Признак действующего адресного объекта';
