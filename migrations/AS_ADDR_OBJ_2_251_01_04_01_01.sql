@@ -1,4 +1,3 @@
--- for AS_ADDR_OBJ_2_251_01_04_01_01.xsd
 CREATE TABLE gar.addr_obj
 (
     id bigint not null primary key,
@@ -14,8 +13,8 @@ CREATE TABLE gar.addr_obj
     updatedate date,
     startdate date,
     enddate date,
-    isactual smallint,
-    isactive smallint
+    isactual integer,
+    isactive integer
 );
 
 COMMENT ON TABLE gar.addr_obj IS 'Сведения классификатора адресообразующих элементов';

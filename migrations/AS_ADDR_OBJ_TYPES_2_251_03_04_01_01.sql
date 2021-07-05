@@ -1,4 +1,3 @@
--- for AS_ADDR_OBJ_TYPES_2_251_03_04_01_01
 create table gar.addr_obj_types
 (
     id         int     not null primary key,

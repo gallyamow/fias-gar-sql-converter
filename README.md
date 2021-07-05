@@ -4,6 +4,9 @@
 * column's name is lower-cased attr name without any change
 * boolean => boolean 
 * string with any restriction => varchar
+* int (even number enumeration), long <= 10 => int
+* long > 10 => bigint 
+* guid => uuid
 
 ## Questions
 

@@ -1,9 +1,7 @@
--- for AS_ADM_HIERARCHY_2_251_04_04_01_01
 create table gar.adm_hierarchy
 (
     id          bigint   not null primary key,
     objectid    bigint   not null,
-    objectguid  uuid     not null,
     parentobjid bigint,
     changeid    bigint   not null,
     regioncode  varchar,
@@ -17,7 +15,7 @@ create table gar.adm_hierarchy
     updatedate  date     not null,
     startdate   date     not null,
     enddate     date     not null,
-    isactive    smallint not null
+    isactive    integer not null
 );
 
 comment on table gar.adm_hierarchy is 'Сведения по иерархии в административном делении';

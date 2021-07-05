@@ -1,4 +1,3 @@
--- for AS_ADDR_OBJ_DIVISION_2_251_19_04_01_01.xsd
 create table gar.addr_obj_division
 (
     id       bigint not null primary key,
