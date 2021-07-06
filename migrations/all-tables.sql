@@ -125,9 +125,16 @@ COMMENT ON COLUMN gar.steads.isactual IS 'Статус актуальности 
 COMMENT ON COLUMN gar.steads.isactive IS 'Признак действующего адресного объекта';
 
 CREATE TABLE gar.normative_docs_types (
-
+  id INTEGER NOT NULL PRIMARY KEY,
+  name VARCHAR NOT NULL,
+  startdate DATE NOT NULL,
+  enddate DATE NOT NULL
 );
-COMMENT ON TABLE gar.normative_docs_types IS 'Сведения по типам нормативных документов';
+COMMENT ON TABLE gar.normative_docs_types IS '';
+COMMENT ON COLUMN gar.normative_docs_types.id IS 'Идентификатор записи';
+COMMENT ON COLUMN gar.normative_docs_types.name IS 'Наименование';
+COMMENT ON COLUMN gar.normative_docs_types.startdate IS 'Дата начала действия записи';
+COMMENT ON COLUMN gar.normative_docs_types.enddate IS 'Дата окончания действия записи';
 
 CREATE TABLE gar.rooms (
   id BIGINT NOT NULL PRIMARY KEY,
@@ -204,9 +211,12 @@ COMMENT ON COLUMN gar.house_types.enddate IS 'Окончание действи�
 COMMENT ON COLUMN gar.house_types.isactive IS 'Статус активности';
 
 CREATE TABLE gar.normative_docs_kinds (
-
+  id INTEGER NOT NULL PRIMARY KEY,
+  name VARCHAR NOT NULL
 );
-COMMENT ON TABLE gar.normative_docs_kinds IS 'Сведения по видам нормативных документов';
+COMMENT ON TABLE gar.normative_docs_kinds IS '';
+COMMENT ON COLUMN gar.normative_docs_kinds.id IS 'Идентификатор записи';
+COMMENT ON COLUMN gar.normative_docs_kinds.name IS 'Наименование';
 
 CREATE TABLE gar.addr_obj (
   id BIGINT NOT NULL PRIMARY KEY,
