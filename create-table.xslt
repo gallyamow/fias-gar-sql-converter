@@ -3,16 +3,15 @@
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output method="text" encoding="UTF-8" indent="no"/>
-    <xsl:strip-space elements="node"/>
     <!-- psql scheme name, empty it if you don't use any scheme -->
     <xsl:param name="scheme">gar.</xsl:param>
 
-    <xsl:template match="/">
-        <xsl:variable name="filename" select="lower-case(tokenize(tokenize(base-uri(.), '/')[last()],'\.')[1])"/>
-        <xsl:variable name="tablename" select="substring(replace($filename, '_\d+', ''), 4)"/>
+    <xsl:template match="/" name="separate-table">
+        <xsl:variable name="file_name" select="lower-case(tokenize(tokenize(base-uri(.), '/')[last()],'\.')[1])"/>
+        <xsl:variable name="table_name" select="substring(replace($file_name, '_\d+', ''), 4)"/>
 
         CREATE TABLE
-        <xsl:value-of select="concat($scheme, $tablename)"/> (
+        <xsl:value-of select="concat($scheme, $table_name)"/> (
         <xsl:for-each
                 select="/xs:schema/xs:element[1]/xs:complexType[1]/xs:sequence[1]/xs:element[1]/xs:complexType[1]/xs:attribute">
             <a>
@@ -41,7 +40,7 @@
 
         <xsl:for-each
                 select="/xs:schema/xs:element[1]/xs:complexType[1]/xs:sequence[1]/xs:element[1]/xs:complexType[1]/xs:attribute">
-            <a>COMMENT ON COLUMN <xsl:value-of select="concat($scheme, $tablename)"/>.<xsl:value-of
+            <a>COMMENT ON COLUMN <xsl:value-of select="concat($scheme, $table_name)"/>.<xsl:value-of
                     select="lower-case(@name)"/> IS<xsl:text> </xsl:text>
                 '<xsl:value-of select="xs:annotation/xs:documentation"/>'
             </a>
