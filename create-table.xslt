@@ -18,7 +18,7 @@
             <a>
                 <xsl:text>  </xsl:text><xsl:value-of select="lower-case(@name)"/><xsl:text> </xsl:text>
                 <xsl:choose>
-                    <!-- тип данных -->
+                    <!--type mapping -->
                     <xsl:when test="xs:simpleType/xs:restriction/@base='xs:long'">BIGINT</xsl:when>
                     <xsl:when test="xs:simpleType/xs:restriction/@base='xs:integer'">INTEGER</xsl:when>
                     <xsl:when test="xs:simpleType/xs:restriction/@base='xs:byte'">INTEGER</xsl:when>
@@ -27,7 +27,7 @@
                     <xsl:when test="contains(lower-case(xs:annotation/xs:documentation),'uuid')">
                         UUID
                     </xsl:when>
-                    <!-- TEXT вместо VARCHAR для совместимости с mysql -->
+                    <!-- TEXT instead of VARCHAR for supporting mysql -->
                     <xsl:when test="xs:simpleType/xs:restriction/@base='xs:string'">TEXT</xsl:when>
                 </xsl:choose>
                 <xsl:if test="@use='required'"><xsl:text> </xsl:text>NOT NULL
