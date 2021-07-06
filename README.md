@@ -1,3 +1,9 @@
+## FIAS-GAR XSLT TO SQL
+
+```sh
+java -jar /opt/saxon/saxon-he-10.5.jar -xsl:/work/projects/fias-gar-importer/create-table.xslt -s:/work/projects/fias-gar-importer/gar_schemas/AS_ADDR_OBJ_2_251_01_04_01_01.xsd -o:/work/projects/fias-gar-importer/gar_tables/AS_ADDR_OBJ_2_251_01_04_01_01.sql
+```
+
 ## AGREEMENTS
 
 * table's name is as the main noun in file name
