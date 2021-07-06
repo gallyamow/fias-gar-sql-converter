@@ -1,4 +1,6 @@
-## FIAS-GAR XSLT TO SQL
+## FIAS-GAR-CONVERTER
+
+Converts FIAS-GAR xml representation to SQL-dump.
 
 ```sh
 # create one table
