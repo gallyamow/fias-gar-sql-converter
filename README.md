@@ -5,23 +5,22 @@ The utility requires XSLT 3.0 transformer, because it used the `xsl:iterate` ins
 
 ```sh
 # create one table
-java -jar /opt/saxon/saxon-he-10.5.jar -xsl:/work/projects/fias-gar-sql-converter/create-table.xslt -s:/work/projects/fias-gar-sql-converter/gar_schemas/AS_ADDR_OBJ_2_251_01_04_01_01.xsd -o:/work/projects/fias-gar-sql-converter/migrations/AS_ADDR_OBJ_2_251_01_04_01_01.sql
+java -jar /opt/saxon/saxon-ee-10.5.jar -xsl:/work/projects/fias-gar-sql-converter/create-table.xslt -s:/work/projects/fias-gar-sql-converter/gar_schemas/AS_ADDR_OBJ_2_251_01_04_01_01.xsd -o:/work/projects/fias-gar-sql-converter/migrations/AS_ADDR_OBJ_2_251_01_04_01_01.sql
 
 # create all tables from xsd files in directory
-sh ./create-all-tables.sh /opt/saxon/saxon-he-10.5.jar ./gar_schemas ./migrations/tables
+sh ./create-all-tables.sh /opt/saxon/saxon-ee-10.5.jar ./gar_schemas ./migrations/tables
 OR
-java -jar /opt/saxon/saxon-he-10.5.jar -xsl:/work/projects/fias-gar-sql-converter/create-all-tables.xslt -it:main -o:/work/projects/fias-gar-sql-converter/migrations/all-tables.sql
+java -jar /opt/saxon/saxon-ee-10.5.jar -xsl:/work/projects/fias-gar-sql-converter/create-all-tables.xslt -it:main -o:/work/projects/fias-gar-sql-converter/migrations/all-tables.sql
 
 # import one file
-java -jar /opt/saxon/saxon-he-10.5.jar -xsl:/work/projects/fias-gar-sql-converter/import.xslt  -s:/work/projects/fias-gar-sql-converter/gar_xml/AS_ROOMS_20210701_c076e3fe-9529-406e-aee1-93fc6f316292.XML -o:/work/projects/fias-gar-sql-converter/migrations/AS_ROOMS_20210701_c076e3fe-9529-406e-aee1-93fc6f316292.sql
-java -jar /opt/saxon/saxon-he-10.5.jar -xsl:/work/projects/fias-gar-sql-converter/import.xslt  -s:/work/projects/fias-gar-sql-converter/gar_xml/AS_ADDHOUSE_TYPES_20210701_e77ddf9c-e1be-413f-98a6-6a8fff9a3137.XML -o:/work/projects/fias-gar-sql-converter/migrations/AS_ADDHOUSE_TYPES_20210701_e77ddf9c-e1be-413f-98a6-6a8fff9a3137.sql
-java -jar /opt/saxon/saxon-he-10.5.jar -xsl:/work/projects/fias-gar-sql-converter/import.xslt  -s:/archive/SAVE/gar-tatar/16/AS_STEADS_PARAMS_20210701_a8a31b82-fd21-4b9e-88c4-613ed788f890.XML -o:/work/projects/fias-gar-sql-converter/migrations/big.sql
+java -jar /opt/saxon/saxon-ee-10.5.jar -xsl:/work/projects/fias-gar-sql-converter/import.xslt  -s:/work/projects/fias-gar-sql-converter/gar_xml/AS_ROOM_TYPES_20210701_7fa64522-32e9-4053-9ba0-45b3bd895f66.XML -o:/work/projects/fias-gar-sql-converter/migrations/AS_ROOM_TYPES_20210701_7fa64522-32e9-4053-9ba0-45b3bd895f66.sql
+java -jar /opt/saxon/saxon-ee-10.5.jar -xsl:/work/projects/fias-gar-sql-converter/import.xslt  -s:/archive/SAVE/gar-tatar/16/AS_STEADS_PARAMS_20210701_a8a31b82-fd21-4b9e-88c4-613ed788f890.XML -o:/work/projects/fias-gar-sql-converter/migrations/big.sql
 
 # import all files from directory
-sh ./import.sh /opt/saxon/saxon-he-10.5.jar ./gar_xml ./migrations/data no
+sh ./import.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./migrations/data no
 
 # import delta files from directory
-sh ./import.sh /opt/saxon/saxon-he-10.5.jar ./gar_xml ./migrations/data yes
+sh ./import.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./migrations/data yes
 ```
 
 ## AGREEMENTS
