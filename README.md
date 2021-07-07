@@ -17,6 +17,9 @@ java -jar /opt/saxon/saxon-he-10.5.jar -xsl:/work/projects/fias-gar-importer/imp
 
 # import all files from directory
 sh ./import.sh ./gar_xml ./migrations/data no
+
+# import delta files from directory
+sh ./import.sh ./gar_xml ./migrations/data yes
 ```
 
 ## AGREEMENTS

@@ -7,8 +7,8 @@
     <xsl:param name="scheme">gar.</xsl:param>
 
     <xsl:template match="/">
-        <xsl:param name="file_name" select="tokenize(tokenize(base-uri(.), '/')[last()],'\.')[1]"/>
-        <xsl:param name="entity_name" select="lower-case(substring(replace($file_name, '_\d+', ''), 4))"/>
+        <xsl:variable name="file_name" select="tokenize(tokenize(base-uri(.), '/')[last()],'\.')[1]"/>
+        <xsl:variable name="entity_name" select="lower-case(substring(replace($file_name, '_\d+', ''), 4))"/>
         <xsl:choose>
             <!-- some xsd files has the different structure -->
             <xsl:when test="$entity_name ='normative_docs_kinds' or $entity_name ='normative_docs_types'">
@@ -22,9 +22,9 @@
 
     <xsl:template match="xs:element" name="table">
         <!-- pass from parent template -->
-        <xsl:param name="file_name" select="tokenize(tokenize(base-uri(.), '/')[last()],'\.')[1]"/>
+        <xsl:variable name="file_name" select="tokenize(tokenize(base-uri(.), '/')[last()],'\.')[1]"/>
         <!-- I need to find a more proper way to get the entity name -->
-        <xsl:param name="entity_name" select="lower-case(substring(replace($file_name, '_\d+', ''), 4))"/>
+        <xsl:variable name="entity_name" select="lower-case(substring(replace($file_name, '_\d+', ''), 4))"/>
         <xsl:variable name="table_name" select="concat($scheme, $entity_name)"/>
 
         <xsl:text>CREATE TABLE </xsl:text>
@@ -45,8 +45,22 @@
 
     <xsl:template match="xs:complexType" name="attrs">
         <xsl:for-each select="xs:attribute">
+            <xsl:variable name="attr_name" select="lower-case(@name)"/>
+            <xsl:variable name="field_name">
+                <xsl:choose>
+                    <!-- some field requires to be quoted -->
+                    <xsl:when test="$attr_name ='desc'">
+                        <xsl:text>"</xsl:text><xsl:value-of select="$attr_name"/><xsl:text>"</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:value-of select="$attr_name"/>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:variable>
             <a>
-                <xsl:text>  </xsl:text><xsl:value-of select="lower-case(@name)"/><xsl:text> </xsl:text>
+                <xsl:text>  </xsl:text>
+                <xsl:value-of select="$field_name"/>
+                <xsl:text> </xsl:text>
                 <xsl:choose>
                     <!--type mapping for restriction -->
                     <xsl:when test="xs:simpleType/xs:restriction/@base='xs:string'">VARCHAR</xsl:when>
