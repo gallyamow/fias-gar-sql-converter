@@ -8,10 +8,10 @@
 
     <xsl:template match="/">
         <xsl:param name="file_name" select="tokenize(tokenize(base-uri(.), '/')[last()],'\.')[1]"/>
-        <xsl:param name="table_name" select="lower-case(substring(replace($file_name, '_\d+', ''), 4))"/>
+        <xsl:param name="entity_name" select="lower-case(substring(replace($file_name, '_\d+', ''), 4))"/>
         <xsl:choose>
-            <!-- some xsd filed has the different structure -->
-            <xsl:when test="$table_name ='normative_docs_kinds' or $table_name ='normative_docs_types'">
+            <!-- some xsd files has the different structure -->
+            <xsl:when test="$entity_name ='normative_docs_kinds' or $entity_name ='normative_docs_types'">
                 <xsl:apply-templates select="/xs:schema/xs:element[2]"/>
             </xsl:when>
             <xsl:otherwise>
@@ -23,20 +23,22 @@
     <xsl:template match="xs:element" name="table">
         <!-- pass from parent template -->
         <xsl:param name="file_name" select="tokenize(tokenize(base-uri(.), '/')[last()],'\.')[1]"/>
-        <xsl:param name="table_name" select="lower-case(substring(replace($file_name, '_\d+', ''), 4))"/>
+        <!-- I need to find a more proper way to get the entity name -->
+        <xsl:param name="entity_name" select="lower-case(substring(replace($file_name, '_\d+', ''), 4))"/>
+        <xsl:variable name="table_name" select="concat($scheme, $entity_name)"/>
 
         <xsl:text>CREATE TABLE </xsl:text>
-        <xsl:value-of select="concat($scheme, $table_name)"/><xsl:text> (&#xa;</xsl:text>
+        <xsl:value-of select="$table_name"/><xsl:text> (&#xa;</xsl:text>
         <xsl:apply-templates select="xs:complexType"/>
         <xsl:text>&#xa;);&#xa;</xsl:text>
         <xsl:text>COMMENT ON TABLE </xsl:text><xsl:value-of
-            select="concat($scheme, $table_name)"/><xsl:text> IS </xsl:text>'<xsl:value-of
-            select="xs:annotation/xs:documentation"/>'<xsl:text>;&#xa;</xsl:text>
+            select="$table_name"/><xsl:text> IS '</xsl:text><xsl:value-of
+            select="xs:annotation/xs:documentation"/><xsl:text>';&#xa;</xsl:text>
         <xsl:for-each
                 select="xs:complexType[1]/xs:attribute">
-            <xsl:text>COMMENT ON COLUMN </xsl:text><xsl:value-of select="concat($scheme, $table_name)"/><xsl:text>.</xsl:text><xsl:value-of
-                select="lower-case(@name)"/><xsl:text> IS </xsl:text>'<xsl:value-of
-                select="xs:annotation/xs:documentation"/>'<xsl:text>;&#xa;</xsl:text>
+            <xsl:text>COMMENT ON COLUMN </xsl:text><xsl:value-of select="$table_name"/><xsl:text>.</xsl:text><xsl:value-of
+                select="lower-case(@name)"/><xsl:text> IS '</xsl:text><xsl:value-of
+                select="xs:annotation/xs:documentation"/><xsl:text>';&#xa;</xsl:text>
         </xsl:for-each>
         <xsl:text>&#xa;</xsl:text>
     </xsl:template>
