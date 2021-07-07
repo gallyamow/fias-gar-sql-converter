@@ -1,26 +1,31 @@
 #!/bin/sh
 
 CURRENT_DIR="$(dirname "$(readlink -f "$0")")"
-SAXON_JAR="/opt/saxon/saxon-he-10.5.jar"
 EXT="XML"
 
 if [ -z "$1" ]; then
-  echo "PASS XML_DIR as the first parameter"
+  echo "Pass SAXON_JAR as the 1st parameter"
   exit 0
 fi
-XML_DIR="$1"
+SAXON_JAR="$1"
 
 if [ -z "$2" ]; then
-  echo "PASS OUTPUT_DIR as the second parameter"
+  echo "Pass XML_DIR as the 2nd parameter"
   exit 0
 fi
-OUTPUT_DIR="$2"
+XML_DIR="$2"
 
 if [ -z "$3" ]; then
-  echo "PASS (yes/no) IS_DELTA as the third parameter"
+  echo "Pass OUTPUT_DIR as the 3rd parameter"
   exit 0
 fi
-IS_DELTA="$3"
+OUTPUT_DIR="$3"
+
+if [ -z "$4" ]; then
+  echo "Pass (yes/no) IS_DELTA as the 4th parameter"
+  exit 0
+fi
+IS_DELTA="$4"
 
 for FILE in "$XML_DIR"/*."$EXT"; do
   echo "handling '$FILE'"
