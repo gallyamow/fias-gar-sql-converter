@@ -33,10 +33,6 @@ sh ./import.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./migrations/data yes
 * long > 10 => bigint 
 * guid => uuid
 
-## Questions
-
-* numeric(19) instead of bigint
-
 ## SEE 
 
 * https://www.saxonica.com/download/download_page.xml
