@@ -75,7 +75,7 @@
             <xsl:if test="$upsert='yes' and $table_primary_key!='NONE'">
                 <xsl:text>ON CONFLICT (</xsl:text>
                 <xsl:value-of select="$table_primary_key"/>
-                <xsl:text>) DO UPDATE SET</xsl:text>
+                <xsl:text>) DO UPDATE SET </xsl:text>
                 <xsl:for-each select="@*">
                     <xsl:variable name="attr_name" select="lower-case(name())"/>
                     <xsl:variable name="field_name">
