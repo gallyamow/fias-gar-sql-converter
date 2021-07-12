@@ -63,9 +63,8 @@ SELECT h.objectid,
        patp.name                AS parentfulltype
 FROM gar.houses h
          INNER JOIN gar.adm_hierarchy hr ON hr.isactive = 1 AND hr.objectid = h.objectid
-
-         LEFT JOIN fias_gar_addhousetypes ahtp1 ON ahtp1.id = h.addtype1
-         LEFT JOIN fias_gar_addhousetypes ahtp2 ON ahtp2.id = h.addtype2
+         LEFT JOIN gar.addhouse_types ahtp1 ON ahtp1.id = h.addtype1
+         LEFT JOIN gar.addhouse_types ahtp2 ON ahtp2.id = h.addtype2
          LEFT JOIN gar.addr_obj pao ON pao.isactive = 1 AND pao.isactual = 1 AND pao.objectid = hr.parentobjid
          LEFT JOIN gar.house_types htp ON htp.id = h.housetype
          LEFT JOIN gar.addr_obj_types patp
@@ -73,7 +72,7 @@ FROM gar.houses h
 WHERE h.isactive = 1
   AND h.isactual = 1;
 
-CREATE MATERIALIZED VIEW v_house_mun AS
+CREATE VIEW gar.v_house_mun AS
 SELECT h.objectid,
        h.objectguid,
        CASE WHEN h.addnum1 IS NOT NULL AND h.addnum2 IS NOT NULL THEN concat(h.housenum, ' ', ahtp1.shortname,
@@ -89,14 +88,14 @@ SELECT h.objectid,
        pao.name                 AS parentname,
        pao.typename             AS parenttype,
        patp.name                AS parentfulltype
-FROM fias_gar_houses h
-         INNER JOIN fias_gar_munhierarchy hr ON hr.isactive = 1 AND hr.objectid = h.objectid
+FROM gar.houses h
+         INNER JOIN gar.mun_hierarchy hr ON hr.isactive = 1 AND hr.objectid = h.objectid
 
-         LEFT JOIN fias_gar_addhousetypes ahtp1 ON ahtp1.id = h.addtype1
-         LEFT JOIN fias_gar_addhousetypes ahtp2 ON ahtp2.id = h.addtype2
-         LEFT JOIN fias_gar_addrobj pao ON pao.isactive = 1 AND pao.isactual = 1 AND pao.objectid = hr.parentobjid
-         LEFT JOIN fias_gar_housetypes htp ON htp.id = h.housetype
-         LEFT JOIN fias_gar_addrobjtypes patp
+         LEFT JOIN gar.addhouse_types ahtp1 ON ahtp1.id = h.addtype1
+         LEFT JOIN gar.addhouse_types ahtp2 ON ahtp2.id = h.addtype2
+         LEFT JOIN gar.addr_obj pao ON pao.isactive = 1 AND pao.isactual = 1 AND pao.objectid = hr.parentobjid
+         LEFT JOIN gar.house_types htp ON htp.id = h.housetype
+         LEFT JOIN gar.addr_obj_types patp
                    ON patp.isactive = TRUE AND patp.level = pao.level::integer AND patp.shortname::text = pao.typename::text
 WHERE h.isactive = 1
   AND h.isactual = 1;
