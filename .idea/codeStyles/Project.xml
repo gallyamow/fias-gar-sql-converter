@@ -20,7 +20,7 @@
       <option name="KEEP_RPAREN_AND_LBRACE_ON_ONE_LINE" value="true" />
     </PHPCodeStyleSettings>
     <PostgresCodeStyleSettings version="2">
-      <option name="KEYWORD_CASE" value="1" />
+      <option name="KEYWORD_CASE" value="0" />
       <option name="SUBQUERY_OPENING" value="1" />
       <option name="SUBQUERY_CONTENT" value="1" />
       <option name="SUBQUERY_CLOSING" value="1" />
