@@ -129,5 +129,4 @@ fabric.properties
 # my
 /gar_tables/*
 /migrations/data
-/migrations/tables
 /gar_xml/
