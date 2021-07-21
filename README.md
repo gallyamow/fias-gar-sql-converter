@@ -37,6 +37,7 @@ sh ./import.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./migrations/data yes
 
 * https://www.saxonica.com/download/download_page.xml
 * https://habr.com/ru/company/hflabs/blog/260601/
+* http://patshaughnessy.net/2017/12/12/installing-the-postgres-ltree-extension
 
 ## Mapping
 
