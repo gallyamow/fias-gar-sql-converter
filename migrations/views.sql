@@ -1,20 +1,20 @@
 -- tree
 DROP MATERIALIZED VIEW IF EXISTS gar.v_adm_hierarchy_path;
 
--- возможна такая ситуация когда ест несколько путей иерархии, причем только 1 из них активный?. См. objectid=6092
+-- возможна такая ситуация когда есть несколько путей иерархии, причем только 1 из них активный?. См. objectid=6092
 
 CREATE MATERIALIZED VIEW gar.v_adm_hierarchy_path AS
-WITH RECURSIVE nodes(path, hierarchy_id, object_id, is_active) AS ( SELECT ARRAY [hr.objectid] AS path,
-                                                                           hr.id               AS hierarchy_id,
+WITH RECURSIVE nodes(hierarchy_id, object_id, path, is_active) AS ( SELECT hr.id               AS hierarchy_id,
                                                                            hr.objectid         AS object_id,
+                                                                           ARRAY [hr.objectid] AS path,
                                                                            hr.isactive         AS is_active
                                                                     FROM gar.adm_hierarchy hr
                                                                     WHERE hr.parentobjid = 0
                                                                     UNION ALL
-                                                                    SELECT nodes.path || hr2.objectid      AS path,
-                                                                           hr2.id                          AS hierarchy_id,
-                                                                           hr2.objectid                    AS object_id,
-                                                                           -- это для того чтобы пометить весь путь неактивным
+                                                                    SELECT hr2.id                         AS hierarchy_id,
+                                                                           hr2.objectid                   AS object_id,
+                                                                           nodes.path || hr2.objectid     AS path,
+                                                                           -- признак активности всего пути
                                                                            nodes.is_active & hr2.isactive AS is_active
                                                                     FROM nodes,
                                                                          gar.adm_hierarchy hr2
@@ -22,14 +22,18 @@ WITH RECURSIVE nodes(path, hierarchy_id, object_id, is_active) AS ( SELECT ARRAY
 SELECT *, array_to_string(path, '.')::ltree AS path_ltree
 FROM nodes;
 
+CREATE UNIQUE INDEX ON gar.v_adm_hierarchy_path (hierarchy_id); -- должен быть уникальным, но дублируется
 CREATE INDEX ON gar.v_adm_hierarchy_path (object_id); -- должен быть уникальным, но дублируется
-CREATE INDEX ON gar.v_adm_hierarchy_path USING GIST (path_ltree);
+CREATE INDEX ON gar.v_adm_hierarchy_path USING GIST (path_ltree); -- не потребовался?
 
 -- related data
 DROP MATERIALIZED VIEW IF EXISTS gar.v_adm_hierarchy_relation;
 
+-- связанные с каждой записью данные, ключевое поле здесь hierarchy_id
 CREATE MATERIALIZED VIEW gar.v_adm_hierarchy_relation AS
-SELECT t.relation_id,
+SELECT t.id                                                                    AS hierarchy_id,
+       t.objectid                                                              AS object_id,
+       t.relation_id,
        t.relation_is_active,
        t.relation_is_actual,
        CASE WHEN t.addr_obj IS NOT NULL THEN 'addr_obj'
@@ -38,9 +42,7 @@ SELECT t.relation_id,
             WHEN t.apartment IS NOT NULL THEN 'apartment'
             WHEN t.carplace IS NOT NULL THEN 'carplace'
             WHEN t.stead IS NOT NULL THEN 'stead' END                          AS relation_type,
-       COALESCE(t.addr_obj, t.house, t.room, t.apartment, t.carplace, t.stead) AS relation_data,
-       t.id                                                                    AS hierarchy_id,
-       t.objectid                                                              AS object_id
+       COALESCE(t.addr_obj, t.house, t.room, t.apartment, t.carplace, t.stead) AS relation_data
 FROM ( SELECT hr.id,
               hr.objectid,
               row_to_json(addr_obj)                                                              AS addr_obj,
@@ -62,4 +64,6 @@ FROM ( SELECT hr.id,
                 LEFT JOIN gar.carplaces ON carplaces.objectid = hr.objectid
                 LEFT JOIN gar.steads ON steads.objectid = hr.objectid ) AS t;
 
+CREATE UNIQUE INDEX ON gar.v_adm_hierarchy_relation (hierarchy_id); -- уникальный
 CREATE INDEX ON gar.v_adm_hierarchy_relation (object_id); -- не уникальный
+
