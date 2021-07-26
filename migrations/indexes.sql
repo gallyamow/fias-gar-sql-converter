@@ -7,3 +7,5 @@ CREATE INDEX ON gar.apartments (objectid);
 CREATE INDEX ON gar.carplaces (objectid);
 CREATE INDEX ON gar.rooms (objectid);
 CREATE INDEX ON gar.steads (objectid);
+
+CREATE INDEX ON gar.param (objectid, typeid);
