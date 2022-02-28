@@ -29,7 +29,7 @@ sh ./import.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./migrations/data yes
 
 It is very important to use `nohup` to prevent accidental stopping of the importing process.
 
-```sql
+```sh
 nohup sh -c 'psql -h localhost -d your_database -U your_user -f your_file.sql' &
 ```
 
