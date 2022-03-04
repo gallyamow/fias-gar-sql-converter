@@ -77,6 +77,9 @@
                     <xsl:when test="@type='xs:boolean'">BOOLEAN</xsl:when>
 
                     <xsl:when test="contains(lower-case(xs:annotation/xs:documentation),'uuid')">UUID</xsl:when>
+
+                    <!-- PATH field does not have any type description, so we use VARCHAR -->
+                    <xsl:when test="@name='PATH'">VARCHAR</xsl:when>
                 </xsl:choose>
                 <xsl:if test="@use='required'">
                     <xsl:text> NOT NULL</xsl:text>

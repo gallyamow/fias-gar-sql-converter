@@ -8,7 +8,7 @@ trial license key.
 
 ```sh
 # create sql-dump to create one table
-java -jar /opt/saxon/saxon-ee-10.5.jar -xsl:/work/projects/fias-gar-sql-converter/create-table.xslt -s:/work/projects/fias-gar-sql-converter/gar_schemas/AS_ADDR_OBJ_2_251_01_04_01_01.xsd -o:/work/projects/fias-gar-sql-converter/migrations/AS_ADDR_OBJ_2_251_01_04_01_01.sql
+java -jar /opt/saxon/saxon-ee-10.5.jar -xsl:/work/projects/fias-gar-sql-converter/create-table.xslt -s:/work/projects/fias-gar-sql-converter/gar_schemas/AS_ADDR_OBJ_2_251_01_04_01_01.xsd -o:/work/projects/fias-gar-sql-converter/migrations/tables/AS_ADDR_OBJ_2_251_01_04_01_01.sql
 
 # create sql-dump to create all tables from xsd files in directory
 sh ./create-all-tables.sh /opt/saxon/saxon-ee-10.5.jar ./gar_schemas ./migrations/tables

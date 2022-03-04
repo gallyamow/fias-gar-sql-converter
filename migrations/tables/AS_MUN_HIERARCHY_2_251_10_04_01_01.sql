@@ -9,7 +9,8 @@ CREATE TABLE gar.mun_hierarchy (
   updatedate DATE NOT NULL,
   startdate DATE NOT NULL,
   enddate DATE NOT NULL,
-  isactive INTEGER NOT NULL
+  isactive INTEGER NOT NULL,
+  path VARCHAR NOT NULL
 );
 COMMENT ON TABLE gar.mun_hierarchy IS 'Сведения по иерархии в муниципальном делении';
 COMMENT ON COLUMN gar.mun_hierarchy.id IS 'Уникальный идентификатор записи. Ключевое поле';
@@ -23,4 +24,5 @@ COMMENT ON COLUMN gar.mun_hierarchy.updatedate IS 'Дата внесения (о
 COMMENT ON COLUMN gar.mun_hierarchy.startdate IS 'Начало действия записи';
 COMMENT ON COLUMN gar.mun_hierarchy.enddate IS 'Окончание действия записи';
 COMMENT ON COLUMN gar.mun_hierarchy.isactive IS 'Признак действующего адресного объекта';
+COMMENT ON COLUMN gar.mun_hierarchy.path IS 'Материализованный путь к объекту (полная иерархия)';
 

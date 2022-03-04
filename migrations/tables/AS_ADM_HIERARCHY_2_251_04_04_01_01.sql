@@ -14,7 +14,8 @@ CREATE TABLE gar.adm_hierarchy (
   updatedate DATE NOT NULL,
   startdate DATE NOT NULL,
   enddate DATE NOT NULL,
-  isactive INTEGER NOT NULL
+  isactive INTEGER NOT NULL,
+  path VARCHAR NOT NULL
 );
 COMMENT ON TABLE gar.adm_hierarchy IS 'Сведения по иерархии в административном делении';
 COMMENT ON COLUMN gar.adm_hierarchy.id IS 'Уникальный идентификатор записи. Ключевое поле';
@@ -33,4 +34,5 @@ COMMENT ON COLUMN gar.adm_hierarchy.updatedate IS 'Дата внесения (о
 COMMENT ON COLUMN gar.adm_hierarchy.startdate IS 'Начало действия записи';
 COMMENT ON COLUMN gar.adm_hierarchy.enddate IS 'Окончание действия записи';
 COMMENT ON COLUMN gar.adm_hierarchy.isactive IS 'Признак действующего адресного объекта';
+COMMENT ON COLUMN gar.adm_hierarchy.path IS 'Материализованный путь к объекту (полная иерархия)';
 
