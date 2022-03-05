@@ -6,7 +6,8 @@ CREATE TABLE gar.house_types (
   updatedate DATE NOT NULL,
   startdate DATE NOT NULL,
   enddate DATE NOT NULL,
-  isactive BOOLEAN NOT NULL
+  isactive BOOLEAN NOT NULL,
+  delta_version INT NOT NULL DEFAULT 0
 );
 COMMENT ON TABLE gar.house_types IS 'Сведения по типам домов';
 COMMENT ON COLUMN gar.house_types.id IS 'Идентификатор';

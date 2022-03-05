@@ -6,30 +6,38 @@ The utility requires XSLT 3.0 transformer, because it used the `xsl:iterate` ins
 This feature implemented in Saxon-PE and Saxon-EE since Saxon 9.6. For using EE and PE version you will need to get 
 trial license key.
 
-```sh
-# create sql-dump to create one table
-java -jar /opt/saxon/saxon-ee-10.5.jar -xsl:/work/projects/fias-gar-sql-converter/create-table.xslt -s:/work/projects/fias-gar-sql-converter/gar_schemas/AS_ADDR_OBJ_2_251_01_04_01_01.xsd -o:/work/projects/fias-gar-sql-converter/migrations/tables/AS_ADDR_OBJ_2_251_01_04_01_01.sql
+## CREATE TABLES
 
+```shell script
 # create sql-dump to create all tables from xsd files in directory
 sh ./create-all-tables.sh /opt/saxon/saxon-ee-10.5.jar ./gar_schemas ./migrations/tables
-OR
+
+# second way
 java -jar /opt/saxon/saxon-ee-10.5.jar -xsl:/work/projects/fias-gar-sql-converter/create-all-tables.xslt -it:main -o:/work/projects/fias-gar-sql-converter/migrations/all-tables.sql
+```
 
-# convert data from one file
-java -jar /opt/saxon/saxon-ee-10.5.jar -xsl:/work/projects/fias-gar-sql-converter/import.xslt  -s:/work/projects/fias-gar-sql-converter/gar_xml/AS_ROOM_TYPES_20210701_7fa64522-32e9-4053-9ba0-45b3bd895f66.XML -o:/work/projects/fias-gar-sql-converter/migrations/AS_ROOM_TYPES_20210701_7fa64522-32e9-4053-9ba0-45b3bd895f66.sql
-java -jar /opt/saxon/saxon-ee-10.5.jar -xsl:/work/projects/fias-gar-sql-converter/import.xslt  -s:/archive/SAVE/gar-tatar/16/AS_STEADS_PARAMS_20210701_a8a31b82-fd21-4b9e-88c4-613ed788f890.XML -o:/work/projects/fias-gar-sql-converter/migrations/big.sql
+## CONVERTING DATA
 
+```shell script
 # convert data from all files in directory (insert mode)
-sh ./import.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./migrations/data no
-# convert data from all files in directory (on conflict update mode)
-sh ./import.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./migrations/data yes
+sh ./import.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./migrations/data/whole 0
+
+# convert data from all files in directory (delta)
+# DELTA_VERSION - Must be a number that increments for each new delta file, for example 20210803
+sh ./import.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./migrations/data/delta [DELTA_VERSION]
+```
+
+Examples
+
+```shell script
+sh ./import.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml/delta-20210803/16 ./migrations/data/delta-20210803/16 20210803
 ```
 
 ## IMPORT DUMP
 
 It is very important to use `nohup` to prevent accidental stopping of the importing process.
 
-```sh
+```shell script
 nohup sh -c 'psql -h localhost -d your_database -U your_user -f your_file.sql' &
 ```
 

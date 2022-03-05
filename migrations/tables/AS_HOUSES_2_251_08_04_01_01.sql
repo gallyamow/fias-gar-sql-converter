@@ -16,7 +16,8 @@ CREATE TABLE gar.houses (
   startdate DATE NOT NULL,
   enddate DATE NOT NULL,
   isactual INTEGER NOT NULL,
-  isactive INTEGER NOT NULL
+  isactive INTEGER NOT NULL,
+  delta_version INT NOT NULL DEFAULT 0
 );
 COMMENT ON TABLE gar.houses IS 'Сведения по номерам домов улиц городов и населенных пунктов';
 COMMENT ON COLUMN gar.houses.id IS 'Уникальный идентификатор записи. Ключевое поле';

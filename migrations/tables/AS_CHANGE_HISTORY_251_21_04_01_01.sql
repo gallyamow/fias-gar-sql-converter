@@ -4,7 +4,8 @@ CREATE TABLE gar.change_history (
   adrobjectid VARCHAR NOT NULL,
   opertypeid INTEGER NOT NULL,
   ndocid BIGINT,
-  changedate DATE NOT NULL
+  changedate DATE NOT NULL,
+  delta_version INT NOT NULL DEFAULT 0
 );
 COMMENT ON TABLE gar.change_history IS 'Сведения по истории изменений';
 COMMENT ON COLUMN gar.change_history.changeid IS 'ID изменившей транзакции';

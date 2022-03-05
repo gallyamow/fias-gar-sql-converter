@@ -7,7 +7,8 @@ CREATE TABLE gar.param (
   value VARCHAR NOT NULL,
   updatedate DATE NOT NULL,
   startdate DATE NOT NULL,
-  enddate DATE NOT NULL
+  enddate DATE NOT NULL,
+  delta_version INT NOT NULL DEFAULT 0
 );
 COMMENT ON TABLE gar.param IS 'Сведения о классификаторе параметров адресообразующих элементов и объектов недвижимости ';
 COMMENT ON COLUMN gar.param.id IS 'Идентификатор записи';

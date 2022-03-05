@@ -12,7 +12,8 @@ CREATE TABLE gar.rooms (
   startdate DATE NOT NULL,
   enddate DATE NOT NULL,
   isactual INTEGER NOT NULL,
-  isactive INTEGER NOT NULL
+  isactive INTEGER NOT NULL,
+  delta_version INT NOT NULL DEFAULT 0
 );
 COMMENT ON TABLE gar.rooms IS 'Сведения по комнатам';
 COMMENT ON COLUMN gar.rooms.id IS 'Уникальный идентификатор записи. Ключевое поле';

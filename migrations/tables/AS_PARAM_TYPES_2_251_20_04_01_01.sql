@@ -6,7 +6,8 @@ CREATE TABLE gar.param_types (
   updatedate DATE NOT NULL,
   startdate DATE NOT NULL,
   enddate DATE NOT NULL,
-  isactive BOOLEAN NOT NULL
+  isactive BOOLEAN NOT NULL,
+  delta_version INT NOT NULL DEFAULT 0
 );
 COMMENT ON TABLE gar.param_types IS 'Сведения по типу параметра';
 COMMENT ON COLUMN gar.param_types.id IS 'Идентификатор типа параметра (ключ)';

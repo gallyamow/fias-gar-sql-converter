@@ -87,8 +87,10 @@
                 <xsl:if test="@name='ID'">
                     <xsl:text> PRIMARY KEY</xsl:text>
                 </xsl:if>
-                <xsl:if test="position()!=last()">,&#xa;</xsl:if>
+                <xsl:text>,&#xa;</xsl:text>
             </a>
         </xsl:for-each>
+        <xsl:text>  </xsl:text>
+        <xsl:text>delta_version INT NOT NULL DEFAULT 0</xsl:text>
     </xsl:template>
 </xsl:stylesheet>

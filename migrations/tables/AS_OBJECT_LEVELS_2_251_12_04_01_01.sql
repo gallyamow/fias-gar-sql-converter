@@ -5,7 +5,8 @@ CREATE TABLE gar.object_levels (
   updatedate DATE NOT NULL,
   startdate DATE NOT NULL,
   enddate DATE NOT NULL,
-  isactive BOOLEAN NOT NULL
+  isactive BOOLEAN NOT NULL,
+  delta_version INT NOT NULL DEFAULT 0
 );
 COMMENT ON TABLE gar.object_levels IS 'Сведения по уровням адресных объектов';
 COMMENT ON COLUMN gar.object_levels.level IS 'Уникальный идентификатор записи. Ключевое поле. Номер уровня объекта';

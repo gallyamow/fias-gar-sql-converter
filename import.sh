@@ -22,14 +22,14 @@ fi
 OUTPUT_DIR="$3"
 
 if [ -z "$4" ]; then
-  echo "Pass (yes/no) IS_DELTA as the 4th parameter"
+  echo "Pass version of delta as the 4th parameter or 0 when you are importing a whole data"
   exit 0
 fi
-IS_DELTA="$4"
+DELTA_VERSION="$4"
 
 for FILE in "$XML_DIR"/*."$EXT"; do
   echo "handling '$FILE'"
   BASE_NAME="$(basename "$FILE" ."$EXT")"
 
-  java -jar "$SAXON_JAR" -s:"$FILE" -xsl:"$CURRENT_DIR"/import.xslt -o:"$OUTPUT_DIR"/"$BASE_NAME".sql upsert="$IS_DELTA"
+  java -jar "$SAXON_JAR" -s:"$FILE" -xsl:"$CURRENT_DIR"/import.xslt -o:"$OUTPUT_DIR"/"$BASE_NAME".sql deltaVersion="$DELTA_VERSION"
 done

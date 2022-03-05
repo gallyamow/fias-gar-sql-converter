@@ -6,7 +6,8 @@ CREATE TABLE gar.room_types (
   updatedate DATE NOT NULL,
   startdate DATE NOT NULL,
   enddate DATE NOT NULL,
-  isactive BOOLEAN NOT NULL
+  isactive BOOLEAN NOT NULL,
+  delta_version INT NOT NULL DEFAULT 0
 );
 COMMENT ON TABLE gar.room_types IS 'Сведения по типам комнат';
 COMMENT ON COLUMN gar.room_types.id IS 'Идентификатор типа (ключ)';

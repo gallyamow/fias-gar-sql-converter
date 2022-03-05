@@ -11,7 +11,8 @@ CREATE TABLE gar.carplaces (
   startdate DATE NOT NULL,
   enddate DATE NOT NULL,
   isactual INTEGER NOT NULL,
-  isactive INTEGER NOT NULL
+  isactive INTEGER NOT NULL,
+  delta_version INT NOT NULL DEFAULT 0
 );
 COMMENT ON TABLE gar.carplaces IS 'Сведения по машино-местам';
 COMMENT ON COLUMN gar.carplaces.id IS 'Уникальный идентификатор записи. Ключевое поле';

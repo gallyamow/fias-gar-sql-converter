@@ -13,7 +13,8 @@ CREATE TABLE gar.addr_obj (
   startdate DATE NOT NULL,
   enddate DATE NOT NULL,
   isactual INTEGER NOT NULL,
-  isactive INTEGER NOT NULL
+  isactive INTEGER NOT NULL,
+  delta_version INT NOT NULL DEFAULT 0
 );
 COMMENT ON TABLE gar.addr_obj IS 'Сведения классификатора адресообразующих элементов';
 COMMENT ON COLUMN gar.addr_obj.id IS 'Уникальный идентификатор записи. Ключевое поле';

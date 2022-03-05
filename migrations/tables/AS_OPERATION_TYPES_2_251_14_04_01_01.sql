@@ -6,7 +6,8 @@ CREATE TABLE gar.operation_types (
   updatedate DATE NOT NULL,
   startdate DATE NOT NULL,
   enddate DATE NOT NULL,
-  isactive BOOLEAN NOT NULL
+  isactive BOOLEAN NOT NULL,
+  delta_version INT NOT NULL DEFAULT 0
 );
 COMMENT ON TABLE gar.operation_types IS 'Сведения по статусу действия';
 COMMENT ON COLUMN gar.operation_types.id IS 'Идентификатор статуса (ключ)';

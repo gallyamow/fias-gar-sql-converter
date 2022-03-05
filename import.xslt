@@ -5,7 +5,7 @@
     <xsl:mode streamable="yes"/>
 
     <xsl:param name="scheme">gar.</xsl:param>
-    <xsl:param name="upsert">yes</xsl:param>
+    <xsl:param name="deltaVersion">0</xsl:param>
     <xsl:param name="param_table_name">param</xsl:param>
 
     <xsl:template match="/">
@@ -62,17 +62,19 @@
                     </xsl:choose>
                 </xsl:variable>
                 <xsl:value-of select="$field_name"/>
-                <xsl:if test="position()!=last()">,</xsl:if>
+                <xsl:text>,</xsl:text>
             </xsl:for-each>
+            <xsl:text>delta_version</xsl:text>
             <xsl:text>) VALUES (</xsl:text>
             <xsl:for-each select="@*">
                 <xsl:text>'</xsl:text>
                 <xsl:value-of select="."/>
                 <xsl:text>'</xsl:text>
-                <xsl:if test="position()!=last()">,</xsl:if>
+                <xsl:text>,</xsl:text>
             </xsl:for-each>
+            <xsl:value-of select="$deltaVersion"/>
             <xsl:text>)</xsl:text>
-            <xsl:if test="$upsert='yes' and $table_primary_key!='NONE'">
+            <xsl:if test="$deltaVersion!=0 and $table_primary_key!='NONE'">
                 <xsl:text>ON CONFLICT (</xsl:text>
                 <xsl:value-of select="$table_primary_key"/>
                 <xsl:text>) DO UPDATE SET </xsl:text>
