@@ -30,6 +30,7 @@ sh ./import.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./migrations/data/delta [D
 Examples
 
 ```shell script
+sh ./import.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml/delta-20210803 ./migrations/data/delta-20210803 20210803
 sh ./import.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml/delta-20210803/16 ./migrations/data/delta-20210803/16 20210803
 ```
 
