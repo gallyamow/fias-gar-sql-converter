@@ -33,7 +33,7 @@
             <xsl:choose>
                 <xsl:when
                         test="$entity_name = 'change_history'">
-                    <xsl:text>changeid</xsl:text>
+                    <xsl:text>NONE</xsl:text>
                 </xsl:when>
                 <xsl:when
                         test="$entity_name = 'object_levels'">
@@ -82,7 +82,7 @@
             </xsl:for-each>
             <xsl:value-of select="$deltaVersion"/>
             <xsl:text>)</xsl:text>
-            <xsl:if test="$deltaVersion != 0">
+            <xsl:if test="$deltaVersion != 0 and $table_primary_key != 'NONE'">
                 <xsl:text>ON CONFLICT (</xsl:text>
                 <xsl:value-of select="$table_primary_key"/>
                 <xsl:text>) DO UPDATE SET </xsl:text>

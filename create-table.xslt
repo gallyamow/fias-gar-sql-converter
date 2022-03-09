@@ -32,7 +32,7 @@
             <xsl:choose>
                 <xsl:when
                         test="$entity_name = 'change_history'">
-                    <xsl:text>changeid</xsl:text>
+                    <xsl:text>NONE</xsl:text>
                 </xsl:when>
                 <xsl:when
                         test="$entity_name = 'object_levels'">
