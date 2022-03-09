@@ -55,6 +55,7 @@ nohup sh -c 'psql -h localhost -d your_database -U your_user -f your_file.sql' &
 ## PROBLEMS
 
 * missing "AS_ADDHOUSE_TYPES.xsd" in gar_schemas however existing "AS_ADDHOUSE_TYPES_*.xml" with data
+* the delta-changes in the root folder has unchanged data
 
 ## SEE 
 
