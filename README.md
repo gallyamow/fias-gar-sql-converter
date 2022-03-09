@@ -20,18 +20,18 @@ java -jar /opt/saxon/saxon-ee-10.5.jar -xsl:/work/projects/fias-gar-sql-converte
 
 ```shell script
 # convert data from all files in directory (insert mode)
-sh ./import.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./migrations/data/whole 0
+sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./migrations/data/whole 0
 
 # convert data from all files in directory (delta)
 # DELTA_VERSION - Must be a number that increments for each new delta file, for example 20210803
-sh ./import.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./migrations/data/delta [DELTA_VERSION]
+sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./migrations/data/delta [DELTA_VERSION]
 ```
 
 Examples
 
 ```shell script
-sh ./import.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml/delta-20210803 ./migrations/data/delta-20210803 20210803
-sh ./import.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml/delta-20210803/16 ./migrations/data/delta-20210803/16 20210803
+sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml/delta-20210803 ./migrations/data/delta-20210803 20210803
+sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml/delta-20210803/16 ./migrations/data/delta-20210803/16 20210803
 ```
 
 ## IMPORT DUMP

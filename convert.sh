@@ -31,5 +31,5 @@ for FILE in "$XML_DIR"/*."$EXT"; do
   echo "handling '$FILE'"
   BASE_NAME="$(basename "$FILE" ."$EXT")"
 
-  java -jar "$SAXON_JAR" -s:"$FILE" -xsl:"$CURRENT_DIR"/import.xslt -o:"$OUTPUT_DIR"/"$BASE_NAME".sql deltaVersion="$DELTA_VERSION"
+  java -jar "$SAXON_JAR" -s:"$FILE" -xsl:"$CURRENT_DIR"/convert.xslt -o:"$OUTPUT_DIR"/"$BASE_NAME".sql deltaVersion="$DELTA_VERSION"
 done
