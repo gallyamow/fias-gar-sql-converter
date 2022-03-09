@@ -12,24 +12,47 @@
         <xsl:choose>
             <!-- some xsd files has the different structure -->
             <xsl:when test="$entity_name ='normative_docs_kinds' or $entity_name ='normative_docs_types'">
-                <xsl:apply-templates select="/xs:schema/xs:element[2]"/>
+                <xsl:apply-templates select="/xs:schema/xs:element[2]">
+                    <xsl:with-param name="entity_name" select="$entity_name"/>
+                </xsl:apply-templates>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:apply-templates select="/xs:schema/xs:element[1]/xs:complexType[1]/xs:sequence[1]/xs:element[1]"/>
+                <xsl:apply-templates select="/xs:schema/xs:element[1]/xs:complexType[1]/xs:sequence[1]/xs:element[1]">
+                    <xsl:with-param name="entity_name" select="$entity_name"/>
+                </xsl:apply-templates>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 
     <xsl:template match="xs:element" name="table">
-        <!-- pass from parent template -->
-        <xsl:variable name="file_name" select="tokenize(tokenize(base-uri(.), '/')[last()],'\.')[1]"/>
-        <!-- I need to find a more proper way to get the entity name -->
-        <xsl:variable name="entity_name" select="lower-case(substring(replace($file_name, '_\d+', ''), 4))"/>
+        <xsl:param name="entity_name"/>
         <xsl:variable name="table_name" select="concat($scheme, $entity_name)"/>
+        <!-- some entity has primary key different from ID -->
+        <xsl:variable name="table_primary_key">
+            <xsl:choose>
+                <xsl:when
+                        test="$entity_name = 'change_history'">
+                    <xsl:text>changeid</xsl:text>
+                </xsl:when>
+                <xsl:when
+                        test="$entity_name = 'object_levels'">
+                    <xsl:text>level</xsl:text>
+                </xsl:when>
+                <xsl:when
+                        test="$entity_name = 'reestr_objects'">
+                    <xsl:text>objectid</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>id</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+        </xsl:variable>
 
         <xsl:text>CREATE TABLE </xsl:text>
         <xsl:value-of select="$table_name"/><xsl:text> (&#xa;</xsl:text>
-        <xsl:apply-templates select="xs:complexType"/>
+        <xsl:apply-templates select="xs:complexType">
+            <xsl:with-param name="table_primary_key" select="$table_primary_key"/>
+        </xsl:apply-templates>
         <xsl:text>&#xa;);&#xa;</xsl:text>
         <xsl:text>COMMENT ON TABLE </xsl:text><xsl:value-of
             select="$table_name"/><xsl:text> IS '</xsl:text><xsl:value-of
@@ -44,6 +67,8 @@
     </xsl:template>
 
     <xsl:template match="xs:complexType" name="attrs">
+        <xsl:param name="table_primary_key"/>
+
         <xsl:for-each select="xs:attribute">
             <xsl:variable name="attr_name" select="lower-case(@name)"/>
             <xsl:variable name="field_name">
@@ -79,12 +104,12 @@
                     <xsl:when test="contains(lower-case(xs:annotation/xs:documentation),'uuid')">UUID</xsl:when>
 
                     <!-- PATH field does not have any type description, so we use VARCHAR -->
-                    <xsl:when test="@name='PATH'">VARCHAR</xsl:when>
+                    <xsl:when test="@name = 'PATH'">VARCHAR</xsl:when>
                 </xsl:choose>
-                <xsl:if test="@use='required'">
+                <xsl:if test="@use = 'required'">
                     <xsl:text> NOT NULL</xsl:text>
                 </xsl:if>
-                <xsl:if test="@name='ID'">
+                <xsl:if test="$attr_name = $table_primary_key">
                     <xsl:text> PRIMARY KEY</xsl:text>
                 </xsl:if>
                 <xsl:text>,&#xa;</xsl:text>

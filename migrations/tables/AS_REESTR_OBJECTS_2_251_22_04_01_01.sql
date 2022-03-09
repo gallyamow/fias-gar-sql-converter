@@ -1,5 +1,5 @@
 CREATE TABLE gar.reestr_objects (
-  objectid BIGINT NOT NULL,
+  objectid BIGINT NOT NULL PRIMARY KEY,
   createdate DATE NOT NULL,
   changeid BIGINT NOT NULL,
   levelid INTEGER NOT NULL,

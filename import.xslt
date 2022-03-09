@@ -28,12 +28,20 @@
             </xsl:choose>
         </xsl:variable>
 
-        <!-- some entity has no primary key, so we can't do upsert  -->
+        <!-- some entity has primary key different from ID -->
         <xsl:variable name="table_primary_key">
             <xsl:choose>
                 <xsl:when
-                        test="$entity_name ='change_history' or $entity_name ='object_levels' or $entity_name ='reestr_objects'">
-                    <xsl:text>NONE</xsl:text>
+                        test="$entity_name = 'change_history'">
+                    <xsl:text>changeid</xsl:text>
+                </xsl:when>
+                <xsl:when
+                        test="$entity_name = 'object_levels'">
+                    <xsl:text>level</xsl:text>
+                </xsl:when>
+                <xsl:when
+                        test="$entity_name = 'reestr_objects'">
+                    <xsl:text>objectid</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:text>id</xsl:text>
@@ -74,7 +82,7 @@
             </xsl:for-each>
             <xsl:value-of select="$deltaVersion"/>
             <xsl:text>)</xsl:text>
-            <xsl:if test="$deltaVersion!=0 and $table_primary_key!='NONE'">
+            <xsl:if test="$deltaVersion != 0">
                 <xsl:text>ON CONFLICT (</xsl:text>
                 <xsl:value-of select="$table_primary_key"/>
                 <xsl:text>) DO UPDATE SET </xsl:text>
@@ -97,7 +105,7 @@
                     <xsl:text>='</xsl:text>
                     <xsl:value-of select="."/>
                     <xsl:text>'</xsl:text>
-                    <xsl:if test="position()!=last()">,</xsl:if>
+                    <xsl:if test="position() != last()">,</xsl:if>
                 </xsl:for-each>
             </xsl:if>
             <xsl:text>;&#xa;</xsl:text>

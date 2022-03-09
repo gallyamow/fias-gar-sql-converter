@@ -1,5 +1,5 @@
 CREATE TABLE gar.change_history (
-  changeid BIGINT NOT NULL,
+  changeid BIGINT NOT NULL PRIMARY KEY,
   objectid BIGINT NOT NULL,
   adrobjectid VARCHAR NOT NULL,
   opertypeid INTEGER NOT NULL,
