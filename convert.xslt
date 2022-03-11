@@ -105,8 +105,10 @@
                     <xsl:text>='</xsl:text>
                     <xsl:value-of select="."/>
                     <xsl:text>'</xsl:text>
-                    <xsl:if test="position() != last()">,</xsl:if>
+                    <xsl:text>,</xsl:text>
                 </xsl:for-each>
+                <xsl:text>delta_version=</xsl:text>
+                <xsl:value-of select="$deltaVersion"/>
             </xsl:if>
             <xsl:text>;&#xa;</xsl:text>
         </xsl:iterate>
