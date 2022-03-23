@@ -75,5 +75,4 @@ fabric.properties
 # my
 /gar_tables/*
 /migrations/data
-/gar_xml/
 .idea/dataSources.xml

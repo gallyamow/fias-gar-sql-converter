@@ -25,6 +25,8 @@ sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./migrations/data/whole 0
 # convert data from all files in directory (delta)
 # DELTA_VERSION - Must be a number that increments for each new delta file, for example 20210803
 sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./migrations/data/delta [DELTA_VERSION]
+
+sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar /storage/fias/import-16-xml /storage/fias/import-16-sql
 ```
 
 Examples
