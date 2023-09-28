@@ -10,30 +10,27 @@ trial license key.
 
 ```shell script
 # create sql-dump to create all tables from xsd files in directory
-sh ./create-all-tables.sh /opt/saxon/saxon-ee-10.5.jar ./gar_schemas ./migrations/tables
+sh ./create-all-tables.sh /opt/saxon/saxon-ee-10.5.jar ./gar_schemas ./gar_schemas_sql
 
 # second way
-java -jar /opt/saxon/saxon-ee-10.5.jar -xsl:/work/projects/fias-gar-sql-converter/create-all-tables.xslt -it:main -o:/work/projects/fias-gar-sql-converter/migrations/all-tables.sql
+java -jar /opt/saxon/saxon-ee-10.5.jar -xsl:./create-all-tables.xslt -it:main -o:./all-tables.sql
 ```
 
 ## CONVERTING DATA
 
 ```shell script
 # convert data from all files in directory (insert mode)
-sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./migrations/data/whole 0
+sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./gar_xml_sql 0
 
 # convert data from all files in directory (delta)
 # DELTA_VERSION - Must be a number that increments for each new delta file, for example 20210803
-sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./migrations/data/delta [DELTA_VERSION]
-
-sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar /storage/fias/import-16-xml /storage/fias/import-16-sql
+sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./gar_xml_sql [DELTA_VERSION]
 ```
 
 Examples
 
 ```shell script
-sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml/delta-20210803 ./migrations/data/delta-20210803 20210803
-sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml/delta-20210803/16 ./migrations/data/delta-20210803/16 20210803
+sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar /storage/fias-2023-09-19/16 /storage/fias-2023-09-19_sql/16 0
 ```
 
 ## IMPORT DUMP

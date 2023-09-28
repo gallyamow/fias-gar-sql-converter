@@ -73,6 +73,4 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 # my
-/gar_tables/*
-/migrations/data
 .idea/dataSources.xml
