@@ -20,7 +20,7 @@ java -jar /opt/saxon/saxon-ee-10.5.jar -xsl:./create-all-tables.xslt -it:main -o
 
 ```shell script
 # convert data from all files in directory (insert mode)
-sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./gar_xml_sql 0
+sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./gar_xml_sql [DUMP_VERSION]
 
 # convert data from all files in directory (delta)
 # DELTA_VERSION - Must be a number that increments for each new delta file, for example 20210803
@@ -30,7 +30,7 @@ sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./gar_xml_sql [DELTA_VERS
 Examples
 
 ```shell script
-sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar /storage/fias-2023-09-19/16 /storage/fias-2023-09-19_sql/16 0
+sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar /storage/fias-2023-09-19/16 /storage/fias-2023-09-19_sql/16 20230919
 ```
 
 ## IMPORT DUMP
