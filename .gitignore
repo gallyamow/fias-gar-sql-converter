@@ -74,3 +74,4 @@ fabric.properties
 
 # my
 .idea/dataSources.xml
+.idea/cody_project_settings.xml
