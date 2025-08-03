@@ -1,8 +1,8 @@
+**XSLT was chosen just for fun, but it works properly.**
+
 ## FIAS-GAR-CONVERTER
 
 Converts FIAS-GAR xml representation to SQL-dump. Конвертирует FIAS-GAR xml представление в SQL-дамп.
-
-**XSLT was chosen just for fun, there is the better way to implement this feature**
 
 The utility requires XSLT 3.0 transformer, because it used the `xsl:iterate` instruction. 
 This feature implemented in Saxon-PE and Saxon-EE since Saxon 9.6. For using EE and PE version you will need to get 
