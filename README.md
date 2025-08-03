@@ -1,14 +1,13 @@
-**XSLT was chosen just for fun, but it works properly.**
-
 ## FIAS-GAR-CONVERTER
 
-Converts FIAS-GAR xml representation to SQL-dump. Конвертирует FIAS-GAR xml представление в SQL-дамп.
+**XSLT был выбран "just for fun", но оказалось что вполне неплохо все работает.**
 
-The utility requires XSLT 3.0 transformer, because it used the `xsl:iterate` instruction. 
-This feature implemented in Saxon-PE and Saxon-EE since Saxon 9.6. For using EE and PE version you will need to get 
-trial license key.
+Конвертирует FIAS-GAR xml представление в SQL-дамп.
 
-## CREATE TABLES
+Утилита требует XSLT 3.0 transformer, потому что использует `xsl:iterate` инструкцию. 
+Этот функционал есть в Saxon-PE and Saxon-EE since Saxon 9.6.
+
+## Генерация sql для создания таблиц
 
 ```shell script
 # create sql-dump to create all tables from xsd files in directory
@@ -18,26 +17,26 @@ sh ./create-all-tables.sh /opt/saxon/saxon-ee-10.5.jar ./gar_schemas ./gar_schem
 java -jar /opt/saxon/saxon-ee-10.5.jar -xsl:./create-all-tables.xslt -it:main -o:./all-tables.sql
 ```
 
-## CONVERTING DATA
+## Конвертирование данных
 
 ```shell script
-# convert data from all files in directory (insert mode)
+# конвертирует данные из всех файлов в директории (insert mode)
 sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./gar_xml_sql [DUMP_VERSION]
 
-# convert data from all files in directory (delta)
+# конвертируеть данные из всех файлов директории оформляя их как дельту
 # DELTA_VERSION - Must be a number that increments for each new delta file, for example 20210803
 sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar ./gar_xml ./gar_xml_sql [DELTA_VERSION]
 ```
 
-Examples
+Примеры
 
 ```shell script
 sh ./convert.sh /opt/saxon/saxon-ee-10.5.jar /storage/fias-2023-09-19/16 /storage/fias-2023-09-19_sql/16 20230919
 ```
 
-## IMPORT DUMP
+## Импортирование результата в БД
 
-It is very important to use `nohup` to prevent accidental stopping of the importing process.
+Рекомендую использовать `nohup` или его аналоги:
 
 ```shell script
 nohup sh -c 'psql -h localhost -d your_database -U your_user -f your_file.sql' &
