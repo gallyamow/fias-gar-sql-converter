@@ -1,6 +1,7 @@
 ## FIAS-GAR-CONVERTER
 
 **XSLT был выбран "just for fun", но оказалось что вполне неплохо все работает.**
+Если нужен более удобный инструмент, то лучше посмотреть https://github.com/gallyamow/go-fias-exporter .
 
 Конвертирует FIAS-GAR xml представление в SQL-дамп.
 
